@@ -845,7 +845,8 @@ parent.fstatus.location.href='submit?q=chgrp+'+v+'+%d';
       html_mods_td buf [
         ("Chunk size", "sr br", "Chunk size");
         ("", "sr", (match info.G.file_chunk_size with
-          Some v -> String.concat " " (List.map (fun v -> Printf.sprintf "%Ld" v) v)
+          Some v -> String.concat " " (List.map (if !!html_mods_human_readable then
+            (fun v -> size_of_int64 v) else (fun v -> Int64.to_string v)) v)
         | None -> "unknown"))];
 
       (match file_magic file with
