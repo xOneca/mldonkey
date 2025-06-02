@@ -732,8 +732,9 @@ let file_print file o =
       Printf.bprintf buf "\\</tr\\>\\<tr class=\\\"dl-%d\\\"\\>" (html_mods_cntr ());
       html_mods_td buf [
         ("Downloaded/Total size", "sr br", "DLed/Size");
-        ("", "sr", Printf.sprintf "%s bytes of %s bytes"
-            (Int64.to_string info.G.file_downloaded) (Int64.to_string info.G.file_size) ) ];
+        ("", "sr", Printf.sprintf "%s of %s bytes"
+            (if !!html_mods_human_readable then (size_of_int64 info.G.file_downloaded) else (Int64.to_string info.G.file_downloaded))
+            (if !!html_mods_human_readable then (size_of_int64 info.G.file_size) else (Int64.to_string info.G.file_size)) ) ];
 
       Printf.bprintf buf "\\</tr\\>\\<tr class=\\\"dl-%d\\\"\\>" (html_mods_cntr ());
       html_mods_td buf [
